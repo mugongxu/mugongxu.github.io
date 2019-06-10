@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>前端面试问题总结 - mugongxu的博客</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/mugongxu"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li><li><a href="http://m.xuguoqian.com/"><span>酷猫</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">前端面试问题总结</h1><ul class="meta"><li><i class="icon icon-author"></i>mugongxu</li><li><i class="icon icon-clock"></i>66 Minutes</li><li><i class="icon icon-calendar"></i>2019年3月12日</li></ul></div></div><div class="article-content" style="max-width:800px"><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>前端面试问题总结 - mugongxu的博客</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/mugongxu"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li><li><a href="http://m.xuguoqian.com/"><span>酷猫</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">前端面试问题总结</h1><ul class="meta"><li><i class="icon icon-author"></i>mugongxu</li><li><i class="icon icon-clock"></i>67 Minutes</li><li><i class="icon icon-calendar"></i>2019年3月12日</li></ul></div></div><div class="article-content" style="max-width:800px"><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
 <li><a href="#%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%AF%B9%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3">说说你对闭包的理解</a></li>
 <li><a href="#%E8%AF%B7%E4%BD%A0%E8%B0%88%E8%B0%88cookie%E7%9A%84%E5%BC%8A%E7%AB%AF">请你谈谈Cookie的弊端</a><ul>
 <li><a href="#%E4%BC%98%E7%82%B9%EF%BC%9A%E6%9E%81%E9%AB%98%E7%9A%84%E6%89%A9%E5%B1%95%E6%80%A7%E5%92%8C%E5%8F%AF%E7%94%A8%E6%80%A7">优点：极高的扩展性和可用性</a></li>
@@ -881,6 +881,23 @@ Last-Modified: $now // RFC1123 format
 <ol>
 <li>使用URL重写，将<code>session id</code>附在URL中</li>
 <li>使用隐藏表单字段,将<code>session id</code>放在隐藏的表单字段中一同提交</li>
+</ol>
+<h3 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h3><ol>
+<li><p><code>Webpack</code>与<code>Grunt</code>、<code>Gulp</code>这类打包工具有什么不同？</p>
+<p>像Grunt、Gulp这类的构建工具，打包的思路是：遍历源文件 -&gt; 匹配规则 -&gt; 打包，这个过程中做不到按需加载，即对于打包起来的资源，到底页面用不用，打包过程中是不关心的。</p>
+<p>Webpack跟其他构建工具本质上不同之处在于：Webpack是从入口文件开始，经过模块依赖加载、分析和打包的三个流程完成项目的构建，在加载、分析和打包的三个过程中，可以针对性的做一些解决方案，比如拆分公共代码等。</p>
+<p>当然，Webpack还可以轻松的解决传统构建工具解决的问题：</p>
+<ol>
+<li>模块化打包，一切皆模块，JS是模块，CSS等也是模块；</li>
+<li>语法糖转换：比如ES6转ES5、TypeScript；</li>
+<li>预处理器编译：比如Less、Sass等；</li>
+<li>项目优化：比如压缩、CDN、按需加载等</li>
+<li>解决方案封装：通过强大的Loader和插件机制，可以完全解决方案的封装，比如PWA；</li>
+<li>流程对接：比如测试流程、语法检测等。</li>
+</ol>
+</li>
+<li><p>与<code>Webpack</code>类似的工具还有哪些？谈谈你为什么选择（或放弃）使用<code>Webpack</code>？</p>
+</li>
 </ol>
 </div><div class="article-meta" style="max-width:800px"></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2019/03/13/如何实现简单的前端项目部署/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2019/03/11/hello-world/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2019 mugongxu的博客</p></div></div></div><script>var wrap = document.getElementById('wrap');
 window.onload = function () {

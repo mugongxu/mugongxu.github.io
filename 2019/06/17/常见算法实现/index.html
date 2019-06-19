@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>常见算法实现 - mugongxu的博客</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/mugongxu"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li><li><a href="http://m.xuguoqian.com/"><span>酷猫</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">常见算法实现</h1><ul class="meta"><li><i class="icon icon-author"></i>mugongxu</li><li><i class="icon icon-clock"></i>2 Minutes</li><li><i class="icon icon-calendar"></i>2019年6月17日</li></ul></div></div><div class="article-content" style="max-width:800px"><h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><ul>
+<li><ol>
+<li>排序算法</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>动态规划，参见背包问题</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>二叉树</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>加油站问题(贪心算法)</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>二分法</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>二叉树遍历</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>单链表反转</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>取1000个数字里面的质数</li>
+</ol>
+</li>
+<li><ol start="9">
+<li>找出数组中和为给定值的两个元素，如：[1, 2, 3, 4, 5]中找出和为6的两个元素。</li>
+</ol>
+</li>
+<li><ol start="10">
+<li>线性顺序存储结构和链式存储结构有什么区别？以及优缺点</li>
+</ol>
+</li>
+<li><ol start="11">
+<li>如何快速让字符串变成已千为精度的数字</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'12546498798783454466'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法一：繁琐</span></span><br><span class="line">a.toString().split(<span class="string">''</span>).reverse().join(<span class="string">''</span>).replace(<span class="regexp">/(\d&#123;3&#125;)/g</span>, <span class="string">'$1,'</span>).split(<span class="string">''</span>).reverse().join(<span class="string">''</span>).replace(<span class="regexp">/^,/</span>, <span class="string">''</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二：简介</span></span><br><span class="line">a.toString().replace(<span class="regexp">/(\d)(?=(?:\d&#123;3&#125;)+$)/g</span>, <span class="string">'$1,'</span>);</span><br></pre></td></tr></table></figure>
+</div><div class="article-meta" style="max-width:800px"></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2019/06/14/new、bind、call、apply原生实现/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2019 mugongxu的博客</p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>

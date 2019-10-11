@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>与微信分享配置相关 - mugongxu的博客</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/mugongxu"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li><li><a href="http://m.xuguoqian.com/"><span>酷猫</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">与微信分享配置相关</h1><ul class="meta"><li><i class="icon icon-author"></i>mugongxu</li><li><i class="icon icon-clock"></i>3 Minutes</li><li><i class="icon icon-calendar"></i>2019年10月11日</li></ul></div></div><div class="article-content" style="max-width:800px"><h2 id="前置：获取公众号开发信息"><a href="#前置：获取公众号开发信息" class="headerlink" title="前置：获取公众号开发信息"></a>前置：获取公众号开发信息</h2><p> 开发者ID（AppID）： XXX<br> 开发者密码（AppSecret）： XXX</p>
+<h2 id="第一步：白名单配置"><a href="#第一步：白名单配置" class="headerlink" title="第一步：白名单配置"></a>第一步：白名单配置</h2><p>路径：设置 → 安全中心→ IP白名单<br>对应分享域名的ip，以及底层通过域名请求后转发到其他服务器的ip，都需要配置白名单<br>例如：ins-ai-m.fubanktech.com（ip：118.178.152.189），在获取jsapi_ticket签名时，底层调用ip为114.215.170.121服务器，所以该ip也需要进行白名单设置。</p>
+<h2 id="第二步：获取jsapi-ticket"><a href="#第二步：获取jsapi-ticket" class="headerlink" title="第二步：获取jsapi_ticket"></a>第二步：获取jsapi_ticket</h2><ol>
+<li><p>参考以下文档获取access_token（有效期7200秒，开发者必须在自己的服务全局缓存access_token）：<br><a href="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html</a></p>
+</li>
+<li><p>用第一步拿到的access_token 采用http GET方式请求获得jsapi_ticket（有效期7200秒，开发者必须在自己的服务全局缓存jsapi_ticket）：<br><a href="https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&amp;type=jsapi" target="_blank" rel="noopener">https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&amp;type=jsapi</a><br>（ps:具体步骤可查看官方文档：<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4）" target="_blank" rel="noopener">https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#4）</a></p>
+</li>
+</ol>
+<h2 id="第三步：结合前端实现签名算法并返回前端wx-config配置"><a href="#第三步：结合前端实现签名算法并返回前端wx-config配置" class="headerlink" title="第三步：结合前端实现签名算法并返回前端wx.config配置"></a>第三步：结合前端实现签名算法并返回前端wx.config配置</h2><ol>
+<li><p>前端提供需要分享的url</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="built_in">window</span>.location.href;</span><br><span class="line"><span class="keyword">let</span> wxUrl = url;</span><br><span class="line">wxUrl = wxUrl.replace(<span class="regexp">/\?.*#/ig</span>, <span class="string">'#'</span>); <span class="comment">//去除路径所携带的所有参数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后端通过前端提供的url实现签名生成：（具体参考上面官方文档）</p>
+</li>
+<li>成功后返回wx.config()内容：</li>
+</ol>
+<p><img src="./1570607309.png" alt="返回的数据格式"></p>
+<h2 id="第四步：js安全域名配置"><a href="#第四步：js安全域名配置" class="headerlink" title="第四步：js安全域名配置"></a>第四步：js安全域名配置</h2><p>路径：设置 → 公众号设置 → 功能设置 → js接口安全域名<br>首先，下载MP_verify_xxxxx.txt文件上传至填写域名或路径指向的web服务器（或虚拟主机）的目录。<br>由于我们使用nginx就行代理配置：/ (斜杠) 通常 alias 到前端项目目录文件下的 dist 文件夹，所以将txt文件放置到指定web服务器上存在两种方式：</p>
+<ol>
+<li>直接将txt文件拷贝到对应的前端项目dist目录下（ps：当前端项目发版时，有可能存在覆盖会删除掉）；</li>
+<li>使用nginx配置：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     ...</span><br><span class="line">    location ~*.txt &#123;</span><br><span class="line">        index MP_verify_xxxxx.txt; # 对应的txt文件</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>从而实现将txt文件放置在nginx代理的对应的服务器目录下，这样就不局限于前端代码的版本迭代。                 </p>
+</div><div class="article-meta" style="max-width:800px"></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2019/06/20/面试2/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2019 mugongxu的博客</p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>

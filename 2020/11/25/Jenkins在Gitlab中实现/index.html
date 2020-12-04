@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>Jenkins在Gitlab中实现 - mugongxu的博客</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/mugongxu"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li><li><a href="http://m.xuguoqian.com/"><span>酷猫</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">Jenkins在Gitlab中实现</h1><ul class="meta"><li><i class="icon icon-author"></i>mugongxu</li><li><i class="icon icon-clock"></i>2 Minutes</li><li><i class="icon icon-calendar"></i>2020年11月25日</li></ul></div></div><div class="article-content" style="max-width:800px"><h2 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h2><p><a href="https://blog.xuguoqian.com/2020/11/16/CentOS7安装Jenkins/" target="_blank" rel="noopener">https://blog.xuguoqian.com/2020/11/16/CentOS7安装Jenkins/</a></p>
+<h2 id="安装Gitlab"><a href="#安装Gitlab" class="headerlink" title="安装Gitlab"></a>安装Gitlab</h2><p><a href="https://blog.xuguoqian.com/2020/11/17/CentOS7安装gitlab/" target="_blank" rel="noopener">https://blog.xuguoqian.com/2020/11/17/CentOS7安装gitlab/</a></p>
+<h2 id="配置Jenkins"><a href="#配置Jenkins" class="headerlink" title="配置Jenkins"></a>配置Jenkins</h2><ol>
+<li><p>安装和Git，GitLab插件<br>系统管理 -&gt; 插件管理 -&gt; 搜索插件并安装<br><img src="./gitlab-plugins.png" alt="gitlab-plugins"></p>
+</li>
+<li><p>配置GitLab插件<br>安装好GitLab插件后，系统管理 -&gt; 系统配置，下拉找到gitlab配置项：<br><img src="./gitlab-setting.png" alt="gitlab-setting"></p>
+</li>
+</ol>
+<p>Gitlab API token的获取：<br><img src="./setting.png" alt="seeting"><br><img src="./setting_01.png" alt="seeting_01"><br><img src="./setting_02.png" alt="seeting_02"><br><img src="./setting_03.png" alt="seeting_03"></p>
+<p>生成token后，就可以添加Jenkins的Credentials了：<br><img src="./setting_04.png" alt="seeting_04"></p>
+<ol start="3">
+<li><p>创建一个Jenkins Job<br>可参考<a href="https://blog.xuguoqian.com/2020/11/24/Jenkins自动布署你的Vue项目/" target="_blank" rel="noopener">Jenkins自动布署你的Vue项目</a></p>
+</li>
+<li><p>配置Job<br>这里主要是采用webhook来监听，从而实现gitlab的自动发版。想用CI/CD的pipelines模式或其他模式的，自行google。<br>打开新建的Job：进入<code>配置</code>:<br><img src="./setting_05.png" alt="seeting_05"><br>选择<code>GitLab Connection</code>：（在第二步配置的配置项）<br><img src="./setting_06.png" alt="seeting_06"></p>
+</li>
+</ol>
+<p>然后其他步骤和<a href="https://blog.xuguoqian.com/2020/11/24/Jenkins自动布署你的Vue项目/" target="_blank" rel="noopener">Jenkins自动布署你的Vue项目</a>中一样</p>
+<h2 id="配置Gitlab"><a href="#配置Gitlab" class="headerlink" title="配置Gitlab"></a>配置Gitlab</h2><ol>
+<li>配置Jenkins构建触发器<br><img src="./setting_07.png" alt="seeting_07"></li>
+<li>配置Gitlab的webhook<br><img src="./setting_08.png" alt="seeting_08"></li>
+</ol>
+<p>然后你就可以监听到项目的master分支的push事件，实现自动发版了。</p>
+</div><div class="article-meta" style="max-width:800px"></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2020/11/24/Jenkins自动布署你的Vue项目/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2020 mugongxu的博客</p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
